@@ -1,0 +1,63 @@
+@import './settings/_colors-settings.scss';
+@import './_document.scss';
+@import './_reset.scss';
+@import './_heading.scss';
+@import './_bubble.scss';
+
+
+@import './parts/_homepage.scss';
+@import './parts/_summary.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+  font-size: 16px;
+  margin: 0;
+  color: color('grey', 'base');
+  font-family: 'Open Sans', sans-serif;
+}
+
+.accent-color {
+  color: color('mx', 'base');
+}
+
+.bold {
+  font-weight: 700;
+}
+
+
+.title {
+  text-align: center;
+}
+
+.title-block {
+  text-align: center;
+  .subtitle {
+    margin-top: -1.1rem;
+  }
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 0.8rem;
+}
+
+li {
+  margin-bottom: 1.2rem;
+}
+
+.sheet {
+  padding: 10mm;
+  text-align: justify;
+}
+
+img {
+  margin-left: -8mm;
+  margin-right: -8mm;
+}

@@ -1,0 +1,15 @@
+.summary {
+    li {
+        margin-top: 1.2rem;
+        margin-bottom: 1.2rem;
+    }
+    a {
+        color: color('grey', 'base');
+        text-decoration: none;
+    }
+
+    > ul > li > a {
+        color: color('grey', 'darken-1');
+        font-weight: 700;
+    }
+}

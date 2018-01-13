@@ -1,0 +1,99 @@
+@mixin headings {
+  h1, h2, h3,
+  h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    @content;
+  }
+}
+
+h1, h2, h3,
+h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  @extend %headings !optional;
+}
+
+.subtitle {
+  letter-spacing: -.06em;
+  color: color('grey', 'darken-1');
+  margin-top: -.9em;
+  font-size: 1.1em;
+}
+
+/**
+ * title with classes, ex :
+ * h1 .h1
+ */
+ $h1Size: 2.5rem;
+ $h2Size: 1.8rem;
+ $h3Size: 1.5rem;
+ $h4Size: 1.25rem;
+ $h5Size: 1.1rem;
+ $h6Size: 1rem;
+ 
+ /**
+  * Displays, ex: .display1
+  */
+ 
+ $display1Size: 3.7rem;
+ $display2Size: 3.4rem;
+ $display3Size: 3.1rem;
+ $display4Size: 2.8rem;
+
+%headings {
+  // margin: .5em 0;
+  line-height: 1;
+}
+
+.title, %headings {
+  color: color('grey', 'darken-1');
+}
+
+h1, .h1 {
+  font-size: $h1Size;
+  letter-spacing: -.02em;
+}
+
+h2, .h2 {
+  font-size: $h2Size;
+  letter-spacing: -.01em;
+}
+
+h3, .h3 {
+  font-size: $h3Size;
+  letter-spacing: -.01em;
+  font-weight: 600;
+}
+
+h4, .h4 {
+  letter-spacing: -.01em;
+  font-size: $h4Size;
+}
+
+h5, .h5 {
+  letter-spacing: -.01em;
+  font-size: $h5Size;
+}
+
+h6, .h6 {
+  font-size: $h6Size;
+}
+
+.display-1 {
+  font-size: $display1Size;
+  line-height: 1.1;
+}
+
+.display-2 {
+  font-size: $display2Size;
+  line-height: 1.1;
+}
+
+.display-3 {
+  font-size: $display3Size;
+  line-height: 1.1;
+}
+
+.display-4 {
+  font-size: $display4Size;
+  line-height: 1.1;
+}

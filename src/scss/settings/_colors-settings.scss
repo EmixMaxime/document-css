@@ -1,0 +1,43 @@
+$mx: (
+	"base":      hsl(263, 49%, 57%),
+	"lighten-1": hsl(263, 43%, 63%),
+	"darken-1": hsl(263, 52%, 54%)
+);
+
+$blue: (
+	"base":       #00757c,
+	"lighten-3":  #369EA4,
+	"lighten-2":  #1F9097,
+	"lighten-1":  #15767C,
+	"darken-1":   #04676D,
+	"darken-2":   #025055,
+);
+
+$grey: (
+	"base":      hsl(180, 0%, 23%),
+	"lighten-1": hsl(180, 0%, 30%),
+	"lighten-2": hsl(180, 0%, 35%),
+	"lighten-3": hsl(180, 0%, 40%),
+	"lighten-4": hsl(180, 0%, 60%),
+	"darken-1":  hsl(180, 0%, 19%)
+);
+
+$colors: (
+	"grey": $grey,
+	"mx": $mx,
+	"blue": $blue
+);
+
+// usage: color("name_of_color", "type_of_color")
+// to avoid to repeating map-get($colors, ...)
+
+@function color($color, $type) {
+	@if map-has-key($colors, $color) {
+		$curr_color: map-get($colors, $color);
+		@if map-has-key($curr_color, $type) {
+			@return map-get($curr_color, $type);
+		}
+	}
+	@warn "Unknown `#{$color}` - `#{$type}` in $colors.";
+	@return null;
+}

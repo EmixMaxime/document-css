@@ -1,0 +1,19 @@
+$gutters: 8px;
+
+.post-header-summary {
+  display: flex;
+  justify-content: center;
+  padding: ($gutters *5) 0;
+  & li {
+    list-style: initial;
+  }
+
+  & ul:not(:first-child) {
+    padding-left: 30px;
+  }
+
+  & li a {
+    display: block;
+    color: inherit;
+  }
+}

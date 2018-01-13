@@ -1,0 +1,32 @@
+$informationBorderColor: color('blue', 'lighten-3');
+
+.bubble {
+  margin-left: -10mm;
+  margin-right: -10mm;
+  padding: 16px 10mm;
+  border-left: 4px solid $informationBorderColor;
+  position: relative;
+
+  &::after {
+    content: '';
+    height: 20px;
+    width: 20px;
+    background-color: $informationBorderColor;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-image: url(/img/information.svg);
+    background-size: 18px;
+    background-position: 50%;
+    background-repeat: no-repeat;
+
+    box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08);
+
+    padding: 5px;
+  }
+}
+
+.bubble--information {
+  background-color: hsl(183, 41%, 97%);
+}
