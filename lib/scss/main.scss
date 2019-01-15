@@ -1,0 +1,119 @@
+@import './_colors-helpers.scss';
+@import './_paper.scss';
+@import './_heading.scss';
+@import './_summary.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+  font-size: 16px;
+  line-height: 1.6em;
+  margin: 0;
+  color: color('grey', 'base');
+  font-family: 'Open Sans', sans-serif;
+}
+
+img {
+  margin: 0 auto;
+  display: inherit;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+
+.text-center {
+  text-align: center;
+}
+
+.title-block {
+  text-align: center;
+  .subtitle {
+    margin-top: -1.1rem;
+  }
+}
+
+.text-justify {
+  text-align: justify;
+}
+
+.pagination, .section--footer {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 0.8rem;
+}
+
+.section--footer {
+	left: 12px;
+}
+
+li {
+  margin-bottom: 1.2rem;
+}
+
+ul.minimize li {
+	margin-bottom: .8rem;
+}
+
+/** BUBBLE THING **/
+
+$informationBorderColor: color('blue', 'lighten-3');
+
+.bubble {
+  margin-left: -10mm;
+  margin-right: -10mm;
+  padding: 16px 10mm;
+  position: relative;
+  border-left: 4px solid;
+
+  &::after {
+    content: '';
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+      background-size: 18px;
+    background-position: 50%;
+    background-repeat: no-repeat;
+
+    // box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08);
+
+    padding: 5px;
+  }
+}
+
+
+.bubble--information, .bubble--informations {
+  border-left-color: $informationBorderColor;
+  background-color: hsl(183, 41%, 97%);
+
+  &::after {
+    background-color: $informationBorderColor;
+    background-image: url(/img/information.svg);
+  }
+}
+
+.bubble--warning {
+  border-left-color: hsl(35, 91%, 61%);
+  background-color: hsl(35, 100%, 92%);
+}
+
+.sheet {
+  padding: 10mm;
+  text-align: justify;
+  position: relative;
+
+  .section-header {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  right: 0;
+	  background-color: color('grey', 'blue');
+	  padding: 8px 10px;
+	  font-size: 0.8rem;
+  }
+}

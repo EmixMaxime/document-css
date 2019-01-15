@@ -1,0 +1,28 @@
+$grey: (
+	"base":      hsl(180, 0%, 23%),
+	"lighten-1": hsl(180, 0%, 30%),
+	"lighten-2": hsl(180, 0%, 35%),
+	"lighten-3": hsl(180, 0%, 40%),
+	"lighten-4": hsl(180, 0%, 60%),
+	"darken-1":  hsl(180, 0%, 19%),
+	"blue": hsl(183, 20%, 98.5%)
+);
+
+$blue: (
+	"base":       #00757c,
+	"lighten-5":  #7AC7CB,
+	"lighten-4":  #4BB6BC,
+	"lighten-3":  #369EA4,
+	"lighten-2":  #1F9097,
+	"lighten-1":  #15767C,
+	"darken-1":   #04676D,
+	"darken-2":   #025055,
+);
+
+@import '../../src/scss/_colors-settings.scss';
+
+$colors: (
+	"grey": $grey,
+	"blue": $blue
+);
+

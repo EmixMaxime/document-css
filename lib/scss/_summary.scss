@@ -1,0 +1,27 @@
+.summary {
+	li {
+		margin-top: .2rem;
+		margin-bottom: .2rem;
+	}
+
+    a {
+		display: block;
+        color: color('grey', 'base');
+        text-decoration: none;
+	}
+	
+	// > li {
+	// 	display: block;
+    //     color: color('grey', 'darken-1');
+    //     font-weight: 700;
+    //     margin-bottom: .5rem;
+	// }
+
+    li ul > li >  a {
+		margin-bottom: 1rem;
+    }
+}
+
+.summary--pagination {
+	float: right;
+}

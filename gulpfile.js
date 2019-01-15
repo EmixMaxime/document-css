@@ -1,49 +1,86 @@
-const gulp = require('gulp')
+const {src, watch, series, dest} = require('gulp')
 const htmlclean = require('gulp-htmlclean')
 const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
 const twig = require('gulp-twig')
+const marked = require('marked')
+const markdown = require('./gulp-markdown')(marked)
+const hbs = require('handlebars')
+const handlebars = require('./gulp-handlebars')(hbs)
+const rename = require('gulp-rename')
+
 const browserSync = require('browser-sync').create()
 
 const config = {
   sass: {
-    src: './src/scss/**/**/*.scss',
+    // src: ['./lib/scss/**/**/*.scss', './src/scss/**/**/*.scss'],
+    src: './lib/scss/**/**/*.scss',
     dest: './dist/css'
   },
 
   html: {
-    src: './tpl/**/**/*.twig',
+    src: './src/writing/**/**/*.twig',
+    dest: './dist'
+  },
+
+  md: {
+    src: './src/writing/**/**/*.md',
+    dest: './dist'
+  },
+
+  doc: {
+    src: './src/layout.hbs',
     dest: './dist'
   },
 
   js: {
-    src: './src/js/**/**/*.js',
+    src: './lib/js/**/**/*.js',
     dest: './dist/js'
   }
 }
 
-gulp.task('sassToCss', () => {
-  return gulp.src(config.sass.src)
+const sassToCss = () => {
+  return src(config.sass.src)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest(config.sass.dest))
+    .pipe(dest(config.sass.dest))
     // .pipe(browserSync.stream())
-})
+}
 
-gulp.task('javascript', () => {
-  return gulp.src(config.js.src)
-    .pipe(gulp.dest(config.js.dest))
-})
+const javascript = () => {
+  return src(config.js.src)
+    .pipe(dest(config.js.dest))
+}
 
-gulp.task('twigToHtml', () => {
-  gulp.src(config.html.src)
+const twigToHtml = () => {
+  return src(config.html.src)
     .pipe(twig())
     .pipe(htmlclean())
-    .pipe(gulp.dest(config.html.dest))
-})
+    .pipe(dest(config.html.dest))
+}
 
-gulp.task('watch', function () {
+const markdownToHtml = () => {
+  return src(config.md.src)
+    .pipe(markdown())
+    .pipe(rename('tmp.html'))
+    .pipe(dest(config.md.dest))
+}
+
+const Fs = require('fs')
+
+const assembleDoc = () => {
+  const templateData = {
+    body: Fs.readFileSync('./dist/tmp.html')
+  }
+
+  return src(config.doc.src)
+    .pipe(handlebars({templateData}))
+    .pipe(rename('index.html'))
+    .pipe(dest(config.doc.dest))
+}
+
+const w = () => {
   browserSync.init({
     server: {
       baseDir: "./dist",
@@ -51,13 +88,14 @@ gulp.task('watch', function () {
     notify: false
   })
 
-  gulp.watch(config.sass.src, ['sassToCss'])
-  gulp.watch(config.html.src, ['twigToHtml'])
-  gulp.watch(config.js.src, ['javascript'])
+  watch(config.sass.src, sassToCss)
+  watch(config.html.src, twigToHtml)
+  watch(config.js.src, javascript)
+  watch(config.md.src, markdownToHtml)
 
-  gulp.watch(config.html.src).on('change', browserSync.reload)
-  gulp.watch(config.js.src).on('change', browserSync.reload)
-  gulp.watch(config.sass.src).on('change', browserSync.reload)
-})
+  watch(config.html.src).on('change', browserSync.reload)
+  watch(config.js.src).on('change', browserSync.reload)
+  return watch(config.sass.src).on('change', browserSync.reload)
+}
 
-gulp.task('default', ['sassToCss', 'twigToHtml', 'watch'])
+exports.default = series(sassToCss, twigToHtml, markdownToHtml, assembleDoc, w)
