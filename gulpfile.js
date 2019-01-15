@@ -3,7 +3,6 @@ const htmlclean = require('gulp-htmlclean')
 const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
 const twig = require('gulp-twig')
-var browserify = require('gulp-browserify')
 const browserSync = require('browser-sync').create()
 
 const config = {
@@ -34,10 +33,6 @@ gulp.task('sassToCss', () => {
 
 gulp.task('javascript', () => {
   return gulp.src(config.js.src)
-    .pipe(browserify({
-      insertGlobals : true,
-      debug : !gulp.env.production
-    }))
     .pipe(gulp.dest(config.js.dest))
 })
 
@@ -65,4 +60,4 @@ gulp.task('watch', function () {
   gulp.watch(config.sass.src).on('change', browserSync.reload)
 })
 
-gulp.task('default', ['sassToCss', 'twigToHtml', 'javascript', 'watch'])
+gulp.task('default', ['sassToCss', 'twigToHtml', 'watch'])
