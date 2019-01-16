@@ -4,6 +4,11 @@ const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
 const twig = require('gulp-twig')
 const marked = require('marked')
+
+marked.setOptions({
+  breaks: true
+})
+
 const markdown = require('./gulp-markdown')(marked)
 const hbs = require('handlebars')
 const handlebars = require('./gulp-handlebars')(hbs)
