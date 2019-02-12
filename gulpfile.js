@@ -84,7 +84,7 @@ const w = () => {
   watch(config.js.src, javascript)
   watch(config.md.src, markdownToHtml)
 
-  watch(config.html.src).on('change', browserSync.reload)
+  watch(config.md.src).on('change', browserSync.reload)
   watch(config.js.src).on('change', browserSync.reload)
   return watch(config.sass.src).on('change', browserSync.reload)
 }
