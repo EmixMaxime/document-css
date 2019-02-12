@@ -1,3 +1,4 @@
+const gulp = require('gulp')
 const Fs = require('fs')
 const {src, watch, series, dest} = require('gulp')
 const htmlclean = require('gulp-htmlclean')
@@ -73,7 +74,6 @@ const mergeHTML = () => {
     .pipe(dest(config.dest))
 }
 
-
 const assembleDoc = () => {
   const templateData = {
     body: Fs.readFileSync(`./dist/${config.doc.htmlSourceFileName}`)
@@ -96,9 +96,9 @@ const w = () => {
 
   watch(config.sass.src, sassToCss)
   watch(config.js.src, javascript)
-  watch(config.md.src, markdownToHtml)
+  watch(config.md.src, gulp.series(markdownToHtml, mergeHTML, assembleDoc))
 
-  watch(config.md.src).on('change', browserSync.reload)
+  watch(config.dest + '/index.html').on('change', browserSync.reload)
   watch(config.js.src).on('change', browserSync.reload)
   return watch(config.sass.src).on('change', browserSync.reload)
 }
