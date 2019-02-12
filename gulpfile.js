@@ -1,8 +1,10 @@
+const Fs = require('fs')
 const {src, watch, series, dest} = require('gulp')
 const htmlclean = require('gulp-htmlclean')
 const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
 const marked = require('marked')
+const concat = require('gulp-concat')
 
 marked.setOptions({
   breaks: true
@@ -16,6 +18,8 @@ const rename = require('gulp-rename')
 const browserSync = require('browser-sync').create()
 
 const config = {
+  dest: './dist',
+
   sass: {
     // src: ['./lib/scss/**/**/*.scss', './src/scss/**/**/*.scss'],
     src: './lib/scss/**/**/*.scss',
@@ -23,13 +27,18 @@ const config = {
   },
 
   md: {
-    src: './src/writing/**/**/*.md',
-    dest: './dist'
+    src: './src/writing/**/**/**.md',
+    dest: './dist/writing'
+  },
+
+  html: {
+    src: './dist/writing/*.html'
   },
 
   doc: {
-    src: './src/layout.hbs',
-    dest: './dist'
+    layout: './src/layout.hbs',
+    htmlSourceFileName: 'tmp.html',
+    finalFileName: 'index.html'
   },
 
   js: {
@@ -55,24 +64,29 @@ const javascript = () => {
 const markdownToHtml = () => {
   return src(config.md.src)
     .pipe(markdown())
-    .pipe(rename('tmp.html'))
     .pipe(dest(config.md.dest))
 }
 
-const Fs = require('fs')
+const mergeHTML = () => {
+  return src(config.html.src)
+    .pipe(concat(config.doc.htmlSourceFileName))
+    .pipe(dest(config.dest))
+}
+
 
 const assembleDoc = () => {
   const templateData = {
-    body: Fs.readFileSync('./dist/tmp.html')
+    body: Fs.readFileSync(`./dist/${config.doc.htmlSourceFileName}`)
   }
 
-  return src(config.doc.src)
+  return src(config.doc.layout)
     .pipe(handlebars({templateData}))
-    .pipe(rename('index.html'))
-    .pipe(dest(config.doc.dest))
+    .pipe(rename(config.doc.finalFileName))
+    .pipe(dest(config.dest))
 }
 
 const w = () => {
+
   browserSync.init({
     server: {
       baseDir: "./dist",
@@ -89,4 +103,4 @@ const w = () => {
   return watch(config.sass.src).on('change', browserSync.reload)
 }
 
-exports.default = series(sassToCss, markdownToHtml, assembleDoc, w)
+exports.default = series(sassToCss, markdownToHtml, mergeHTML, assembleDoc, w)
