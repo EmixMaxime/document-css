@@ -2,7 +2,6 @@ const {src, watch, series, dest} = require('gulp')
 const htmlclean = require('gulp-htmlclean')
 const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
-const twig = require('gulp-twig')
 const marked = require('marked')
 
 marked.setOptions({
@@ -21,11 +20,6 @@ const config = {
     // src: ['./lib/scss/**/**/*.scss', './src/scss/**/**/*.scss'],
     src: './lib/scss/**/**/*.scss',
     dest: './dist/css'
-  },
-
-  html: {
-    src: './src/writing/**/**/*.twig',
-    dest: './dist'
   },
 
   md: {
@@ -58,13 +52,6 @@ const javascript = () => {
     .pipe(dest(config.js.dest))
 }
 
-const twigToHtml = () => {
-  return src(config.html.src)
-    .pipe(twig())
-    .pipe(htmlclean())
-    .pipe(dest(config.html.dest))
-}
-
 const markdownToHtml = () => {
   return src(config.md.src)
     .pipe(markdown())
@@ -94,7 +81,6 @@ const w = () => {
   })
 
   watch(config.sass.src, sassToCss)
-  watch(config.html.src, twigToHtml)
   watch(config.js.src, javascript)
   watch(config.md.src, markdownToHtml)
 
@@ -103,4 +89,4 @@ const w = () => {
   return watch(config.sass.src).on('change', browserSync.reload)
 }
 
-exports.default = series(sassToCss, twigToHtml, markdownToHtml, assembleDoc, w)
+exports.default = series(sassToCss, markdownToHtml, assembleDoc, w)

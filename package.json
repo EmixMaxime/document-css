@@ -16,8 +16,7 @@
     "gulp": "^4.0.0",
     "gulp-htmlclean": "^2.7.14",
     "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.6.1",
-    "gulp-twig": "^1.1.1"
+    "gulp-sourcemaps": "^2.6.1"
   },
   "dependencies": {
     "gulp-rename": "^1.4.0",
