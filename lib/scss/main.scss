@@ -2,6 +2,7 @@
 @import './_paper.scss';
 @import './_heading.scss';
 @import './_summary.scss';
+@import './bubble.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
@@ -55,51 +56,6 @@ li {
 
 ul.minimize li {
 	margin-bottom: .8rem;
-}
-
-/** BUBBLE THING **/
-
-$informationBorderColor: color('blue', 'lighten-3');
-
-.bubble {
-  margin-left: -10mm;
-  margin-right: -10mm;
-  padding: 16px 10mm;
-  position: relative;
-  border-left: 4px solid;
-
-  &::after {
-    content: '';
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-
-      background-size: 18px;
-    background-position: 50%;
-    background-repeat: no-repeat;
-
-    // box-shadow: 0 4px 6px rgba(50,50,93,.11),0 1px 3px rgba(0,0,0,.08);
-
-    padding: 5px;
-  }
-}
-
-
-.bubble--information, .bubble--informations {
-  border-left-color: $informationBorderColor;
-  background-color: hsl(183, 41%, 97%);
-
-  &::after {
-    background-color: $informationBorderColor;
-    background-image: url(/img/information.svg);
-  }
-}
-
-.bubble--warning {
-  border-left-color: hsl(35, 91%, 61%);
-  background-color: hsl(35, 100%, 92%);
 }
 
 .sheet {
