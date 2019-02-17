@@ -22,9 +22,14 @@ const config = {
   dest: './dist',
 
   sass: {
-    // src: ['./lib/scss/**/**/*.scss', './src/scss/**/**/*.scss'],
-    src: './lib/scss/**/**/*.scss',
+    src: ['./lib/scss/**/**/*.scss', './src/scss/**/**/*.scss'],
+    // src: './lib/scss/**/**/*.scss',
     dest: './dist/css'
+  },
+
+  svg: {
+    src: ['./lib/**/**/*.svg'],
+    dest: './dist'
   },
 
   md: {
@@ -55,6 +60,11 @@ const sassToCss = () => {
     .pipe(sourcemaps.write('./maps'))
     .pipe(dest(config.sass.dest))
     // .pipe(browserSync.stream())
+}
+
+const svg = () => {
+  return src(config.svg.src)
+    .pipe(dest(config.svg.dest))
 }
 
 const javascript = () => {
@@ -103,4 +113,4 @@ const w = () => {
   return watch(config.sass.src).on('change', browserSync.reload)
 }
 
-exports.default = series(sassToCss, markdownToHtml, mergeHTML, assembleDoc, w)
+exports.default = series(sassToCss, svg, markdownToHtml, mergeHTML, assembleDoc, w)
