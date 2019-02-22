@@ -6,17 +6,21 @@ const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
 const marked = require('marked')
 const concat = require('gulp-concat')
+const del = require('del')
+const markdown = require('gulp-markdown')
 
 marked.setOptions({
   breaks: true
 })
 
-const markdown = require('./gulp-markdown')(marked)
+// const markdown = require('./gulp-markdown')(marked)
 const hbs = require('handlebars')
 const handlebars = require('./gulp-handlebars')(hbs)
 const rename = require('gulp-rename')
 
 const browserSync = require('browser-sync').create()
+
+const IMAGES_REGEX = '*.+(jpg|jpgeg|png|gif|svg)'
 
 const config = {
   dest: './dist',
@@ -27,8 +31,8 @@ const config = {
     dest: './dist/css'
   },
 
-  svg: {
-    src: ['./lib/**/**/*.svg'],
+  images: {
+    src: [`./lib/**/**/${IMAGES_REGEX}`, `./src/**/${IMAGES_REGEX}`],
     dest: './dist'
   },
 
@@ -62,9 +66,9 @@ const sassToCss = () => {
     // .pipe(browserSync.stream())
 }
 
-const svg = () => {
-  return src(config.svg.src)
-    .pipe(dest(config.svg.dest))
+const images = () => {
+  return src(config.images.src)
+    .pipe(dest(config.images.dest))
 }
 
 const javascript = () => {
@@ -95,6 +99,12 @@ const assembleDoc = () => {
     .pipe(dest(config.dest))
 }
 
+const clean = () => {
+  return del([
+    'dist/*',
+  ])
+}
+
 const w = () => {
 
   browserSync.init({
@@ -113,4 +123,4 @@ const w = () => {
   return watch(config.sass.src).on('change', browserSync.reload)
 }
 
-exports.default = series(sassToCss, svg, markdownToHtml, mergeHTML, assembleDoc, w)
+exports.default = series(clean, sassToCss, images, markdownToHtml, mergeHTML, assembleDoc, w)
