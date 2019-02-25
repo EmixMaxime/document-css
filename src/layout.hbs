@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>DocumentCSS</title>
-  <link rel="stylesheet" href="css/main.css">
+
+  <link rel="stylesheet" href="css/lib-main.css">
+  <link rel="stylesheet" href="css/doc-main.css">
 </head>
+
 <body class="A4">
 
-    <section class="sheet">
+    {{!-- <section class="sheet"> --}}
         {{{body}}}
-    </section>
+    {{!-- </section> --}}
 
-  <script src="/js/pageManager.js"></script>
+  {{!-- <script src="/js/pageManager.js"></script> --}}
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="/js/pagination.js"></script>
+  <script src="/js/summary.js"></script>
+  <script src="/js/readable.js"></script>
 </body>
 </html>
