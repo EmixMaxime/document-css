@@ -1,11 +1,15 @@
 @page { margin: 0; padding: 0; }
 body { margin: 0; padding: 0; }
 
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
 .sheet {
+  text-align: justify;
   margin: 0;
   overflow: hidden;
   position: relative;
-  box-sizing: border-box;
   page-break-after: always;
 }
 
@@ -30,6 +34,20 @@ body.legal.landscape  .sheet { width: 357mm; height: 215mm }
 .sheet.padding-15mm { padding: 15mm }
 .sheet.padding-20mm { padding: 20mm }
 .sheet.padding-25mm { padding: 25mm }
+
+$paper_padding: 10mm;
+
+.sheet {
+  @extend .sheet.padding-#{$paper_padding};
+}
+
+.sheet figure {
+  .img-legend {
+    color: color('airbus', 'blue');
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}
 
 /**
  * 
