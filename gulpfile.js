@@ -123,4 +123,4 @@ const w = () => {
   return watch(config.sass.src).on('change', browserSync.reload)
 }
 
-exports.default = series(clean, sassToCss, images, markdownToHtml, mergeHTML, assembleDoc, w)
+exports.default = series(clean, sassToCss, images, javascript, markdownToHtml, mergeHTML, assembleDoc, w)

@@ -41,7 +41,12 @@ $paper_padding: 10mm;
   @extend .sheet.padding-#{$paper_padding};
 }
 
+.no-padding-top {
+  padding-top: 0mm;
+}
+
 .sheet figure {
+  margin: 0;
   .img-legend {
     color: color('airbus', 'blue');
     font-size: 0.9rem;
